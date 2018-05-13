@@ -1,5 +1,7 @@
 package menuPackage;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import Scanner.ScannerCsv;
 import service.CompanyDirectoryService;
 public class MainMenu extends AbstractMenu {
     private CompanyDirectoryService service;
@@ -14,7 +16,7 @@ public class MainMenu extends AbstractMenu {
         this.items.add("Sort clients");
     }
     @Override
-    public void interactWithMenu() {
+    public void interactWithMenu() throws FileNotFoundException {
     //TODO: Обработка ввода и вызов метода контроллера
        // Scanner sc = new Scanner(System.in);
         boolean exit = false;
@@ -34,8 +36,9 @@ public class MainMenu extends AbstractMenu {
                 switch (command) {
                     case 1:
                         System.out.println("Вы ввели число 1 - Загрузка файла ");
-                        Scanner scName = new Scanner(System.in);
-                        String nameFromKeyBoard = scName.nextLine();
+                       //Чтение из файла, сохранение и вывод
+                        ScannerCsv readFromFile = new ScannerCsv();
+                        readFromFile.toReadFromFile2();
                         exit = false;
                         break;
                     // catch (Exception incorrectInput){
