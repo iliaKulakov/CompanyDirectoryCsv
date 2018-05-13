@@ -1,14 +1,19 @@
 package Scanner;
+import storage.PersonStorage;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ScannerCsv implements IScannerCsv {
 
-    //Сделал чтение из файла и просто вывод на экран
+    //Сделал чтение из через буффер ридер и просто вывод на экран что в файле
    public void toReadFromFile() throws FileNotFoundException {
-         String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
+        String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -38,7 +43,63 @@ public class ScannerCsv implements IScannerCsv {
                 }
     }
 
-}} //toReadFromFile
+}} //toReadFromFile реализация по другому
+    public void toReadFromFile2()throws FileNotFoundException{
+        String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
+        //String line = "";
+        String cvsSplitBy = ";";
+        String line = null;
+        Scanner scanner = null;
+        int index = 0;
+        List<PersonStorage> personList = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader(csvFile));
+        try {
+            while ((line = br.readLine()) != null) {
+                PersonStorage persons = new PersonStorage();
+                scanner = new Scanner(line);
+                scanner.useDelimiter(";");
+                while (scanner.hasNext()) {
+                    String data = scanner.next();
+                    if (index == 0)
+                        persons.setID(data);
+                    else if (index == 1)
+                        persons.setFIO(data);
+                    else if (index == 2)
+                        persons.setDate(data);
+                    else if (index == 3)
+                        persons.setNumOfProjects(data);
+                    else if (index == 4)
+                        persons.setRate(data);
+                    else if (index == 5)
+                        persons.setComments(data);
+                    else
+                        System.out.println("Некорректные данные::" + data);
+                    index++;
+                }
+                index = 0;
+                personList.add(persons);
+            }
 
 
-}
+            br.close();
+
+            System.out.println(personList);
+        }//try
+     catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (br != null) {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+    }
+    }}}
+
+
+
+
