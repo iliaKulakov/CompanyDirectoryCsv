@@ -1,4 +1,5 @@
 package Scanner;
+
 import storage.PersonStorage;
 
 import java.io.BufferedReader;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class ScannerCsv implements IScannerCsv {
 
     //Сделал чтение из через буффер ридер и просто вывод на экран что в файле
-   public void toReadFromFile() throws FileNotFoundException {
+    public void toReadFromFile() throws FileNotFoundException {
         String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
         BufferedReader br = null;
         String line = "";
@@ -29,7 +30,7 @@ public class ScannerCsv implements IScannerCsv {
                 System.out.println("Line from file[" + lineFromFile[0] + lineFromFile[1] + lineFromFile[2] + lineFromFile[3] + lineFromFile[4] + lineFromFile[5]);
                 System.out.println();
 
-        } //try
+            } //try
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -41,10 +42,12 @@ public class ScannerCsv implements IScannerCsv {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-    }
+            }
 
-}} //toReadFromFile реализация по другому
-    public void toReadFromFile2()throws FileNotFoundException{
+        }
+    } //toReadFromFile реализация по другому
+
+    public void toReadFromFile2() throws FileNotFoundException {
         String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
         //String line = "";
         String cvsSplitBy = ";";
@@ -85,20 +88,22 @@ public class ScannerCsv implements IScannerCsv {
 
             System.out.println(personList);
         }//try
-     catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        if (br != null) {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+            }
+        }
     }
-    }}}
+}
 
 
 
