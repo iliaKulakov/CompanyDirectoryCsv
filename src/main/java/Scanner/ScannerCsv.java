@@ -14,7 +14,7 @@ public class ScannerCsv implements IScannerCsv {
 
     //Сделал чтение из через буффер ридер и просто вывод на экран что в файле
     public void toReadFromFile() throws FileNotFoundException {
-        String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
+        String csvFile = "db.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -48,7 +48,7 @@ public class ScannerCsv implements IScannerCsv {
     } //toReadFromFile реализация по другому
 
     public void toReadFromFile2() throws FileNotFoundException {
-        String csvFile = "C:\\Users\\Angron\\Desktop\\csv\\test2.csv";
+        String csvFile = "db.csv";
         //String line = "";
         String cvsSplitBy = ";";
         String line = null;
@@ -64,21 +64,20 @@ public class ScannerCsv implements IScannerCsv {
                 while (scanner.hasNext()) {
                     String data = scanner.next();
                     if (index == 0)
-                        persons.setID(data);
-                    else if (index == 1)
                         persons.setFIO(data);
-                    else if (index == 2)
+                    else if (index == 1)
                         persons.setDate(data);
-                    else if (index == 3)
+                    else if (index == 2)
                         persons.setNumOfProjects(data);
-                    else if (index == 4)
+                    else if (index == 3)
                         persons.setRate(data);
-                    else if (index == 5)
+                    else if (index == 4)
                         persons.setComments(data);
                     else
                         System.out.println("Некорректные данные::" + data);
                     index++;
                 }
+                
                 index = 0;
                 personList.add(persons);
             }
