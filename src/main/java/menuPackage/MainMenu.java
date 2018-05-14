@@ -1,24 +1,30 @@
 package menuPackage;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 import Scanner.ScannerCsv;
 import service.CompanyDirectoryService;
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MainMenu extends AbstractMenu {
     private CompanyDirectoryService service;
+
     public MainMenu() {
         super();
         initMenuItems();
-        this.service= new CompanyDirectoryService();
+        this.service = new CompanyDirectoryService();
     }
+
     private void initMenuItems() {
         this.items.add("Download file");
         this.items.add("Search clients");
         this.items.add("Sort clients");
     }
+
     @Override
     public void interactWithMenu() throws FileNotFoundException {
-    //TODO: Обработка ввода и вызов метода контроллера
-       // Scanner sc = new Scanner(System.in);
+        //TODO: Обработка ввода и вызов метода контроллера
+        // Scanner sc = new Scanner(System.in);
         boolean exit = false;
         do {
             printMenu(); //вызываю печать меню от menu.AbstractMenu
@@ -32,37 +38,36 @@ public class MainMenu extends AbstractMenu {
                 }
                 command = sc.nextInt();
             } while (command <= 0);
-           // System.out.println("Thank you! Got " + command);
-                switch (command) {
-                    case 1:
-                        System.out.println("Вы ввели число 1 - Загрузка файла ");
-                       //Чтение из файла, сохранение и вывод
-                        ScannerCsv readFromFile = new ScannerCsv();
-                        readFromFile.toReadFromFile2();
-                        exit = false;
-                        break;
-                    // catch (Exception incorrectInput){
-                    //    System.out.println("IncorrectInput");throw incorrectInput;}
-                    case 2:
-                        System.out.println("You have entered the number 2. Search Persons");
-                        System.out.println("Type a name from the keyboard to search");
-                        Scanner scName2 = new Scanner(System.in);
-                        String Name = scName2.nextLine();
-                        service.searchByName(Name);
-                        exit = false;
-                        break;
-                    case 3:
-                        exit = false;
-                        break;
-                    default:
-                        System.out.println("Error! Please try again:  ");
-                        exit = false;
-                        break;
+            // System.out.println("Thank you! Got " + command);
+            switch (command) {
+                case 1:
+                    System.out.println("Вы ввели число 1 - Загрузка файла ");
+                    //Чтение из файла, сохранение и вывод
+                    ScannerCsv readFromFile = new ScannerCsv();
+                    readFromFile.toReadFromFile2();
+                    exit = false;
+                    break;
+                // catch (Exception incorrectInput){
+                //    System.out.println("IncorrectInput");throw incorrectInput;}
+                case 2:
+                    System.out.println("You have entered the number 2. Search Persons");
+                    System.out.println("Type a name from the keyboard to search");
+                    Scanner scName2 = new Scanner(System.in);
+                    String Name = scName2.nextLine();
+                    service.searchByName(Name);
+                    exit = false;
+                    break;
+                case 3:
+                    exit = false;
+                    break;
+                default:
+                    System.out.println("Error! Please try again:  ");
+                    exit = false;
+                    break;
 
-                } // end switch
+            } // end switch
 
         } while (exit != true);
-
 
 
     }
