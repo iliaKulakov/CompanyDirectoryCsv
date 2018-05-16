@@ -16,7 +16,7 @@ public class MainMenu extends AbstractMenu {
     }
 
     private void initMenuItems() {
-        this.items.add("Download file");
+        this.items.add("Load file");
         this.items.add("Search clients");
         this.items.add("Sort clients");
     }
@@ -24,7 +24,7 @@ public class MainMenu extends AbstractMenu {
     @Override
     public void interactWithMenu() throws FileNotFoundException {
         //TODO: Обработка ввода и вызов метода контроллера
-        // Scanner sc = new Scanner(System.in);
+
         boolean exit = false;
         do {
             printMenu(); //вызываю печать меню от menu.AbstractMenu
@@ -38,7 +38,6 @@ public class MainMenu extends AbstractMenu {
                 }
                 command = sc.nextInt();
             } while (command <= 0);
-            // System.out.println("Thank you! Got " + command);
             switch (command) {
                 case 1:
                     System.out.println("Вы ввели число 1 - Загрузка файла ");
@@ -47,8 +46,6 @@ public class MainMenu extends AbstractMenu {
                     readFromFile.toReadFromFile2();
                     exit = false;
                     break;
-                // catch (Exception incorrectInput){
-                //    System.out.println("IncorrectInput");throw incorrectInput;}
                 case 2:
                     System.out.println("You have entered the number 2. Search Persons");
                     System.out.println("Type a name from the keyboard to search");

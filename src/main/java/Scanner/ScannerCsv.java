@@ -81,10 +81,7 @@ public class ScannerCsv implements IScannerCsv {
                 index = 0;
                 personList.add(persons);
             }
-
-
             br.close();
-
             System.out.println(personList);
         }//try
         catch (FileNotFoundException e) {
