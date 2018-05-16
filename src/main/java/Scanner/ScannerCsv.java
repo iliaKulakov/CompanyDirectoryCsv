@@ -61,7 +61,9 @@ public class ScannerCsv implements IScannerCsv {
                 PersonStorage persons = new PersonStorage();
                 scanner = new Scanner(line);
                 scanner.useDelimiter(";");
-                while (scanner.hasNext()) {
+                while (scanner.hasNext())
+
+                {
                     String data = scanner.next();
                     if (index == 0)
                         persons.setFIO(data);
@@ -76,7 +78,7 @@ public class ScannerCsv implements IScannerCsv {
                     else
                         System.out.println("Некорректные данные::" + data);
                     index++;
-                }
+                } //scanner
                 
                 index = 0;
                 personList.add(persons);

@@ -10,6 +10,15 @@ public class Person implements IPerson {
     private Float Rate;
     private String Comments;
 
+
+    public Person(String FIO, Date dateInfo, Integer numOfProjects, Float rate, String comments) {
+        this.FIO = FIO;
+        DateInfo = dateInfo;
+        NumOfProjects = numOfProjects;
+        Rate = rate;
+        Comments = comments;
+    }
+
     //приватный конструктор
     private Person(){}
 
