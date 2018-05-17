@@ -61,12 +61,10 @@ public class Draft_ReadCSVFile_BufferedReader {
         return date;
     }//getDateInfo
 
-
     // метод main в парсере
     public static void main(String args[])
     {
         Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
-
         BufferedReader br = null;
         try
         {
@@ -80,15 +78,16 @@ public class Draft_ReadCSVFile_BufferedReader {
 
                 if(personsDetails.length > 0 )
                 {
-                    // Метод в котором буду проверять поле из парсера
+                    // Методы валидации
                     String firstName = FileParserObject.getFirstName(personsDetails[0]);
                     Date DateInfo = FileParserObject.getDateInfo(personsDetails[1]);
 
-                    Person person = new Person(firstName, //FIO
-                    DateInfo,                    //Date
-                    Integer.parseInt(personsDetails[2]),  //NumOfProjects
-                    Float.parseFloat(personsDetails[3]),  // Rate
-                    personsDetails[4]);                    //Comments
+                    //Сохранение в билдер
+                    Person person = new Person(firstName,   //FIO
+                    DateInfo,                               //Date
+                    Integer.parseInt(personsDetails[2]),    //NumOfProjects
+                    Float.parseFloat(personsDetails[3]),    // Rate
+                    personsDetails[4]);                     //Comments
                     personList.add(person);
                 }
             }
