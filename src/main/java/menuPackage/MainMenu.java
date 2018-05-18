@@ -1,5 +1,6 @@
 package menuPackage;
 
+import Scanner.Draft_ReadCSVFile_BufferedReader;
 import Scanner.ScannerCsv;
 import service.CompanyDirectoryService;
 
@@ -24,7 +25,6 @@ public class MainMenu extends AbstractMenu {
     @Override
     public void interactWithMenu() throws FileNotFoundException {
         //TODO: Обработка ввода и вызов метода контроллера
-
         boolean exit = false;
         do {
             printMenu(); //вызываю печать меню от menu.AbstractMenu
@@ -42,8 +42,10 @@ public class MainMenu extends AbstractMenu {
                 case 1:
                     System.out.println("Вы ввели число 1 - Загрузка файла ");
                     //Чтение из файла, сохранение и вывод
-                    ScannerCsv readFromFile = new ScannerCsv();
-                    readFromFile.toReadFromFile2();
+                    //ScannerCsv readFromFile = new ScannerCsv();
+                    //readFromFile.toReadFromFile2();
+                    Draft_ReadCSVFile_BufferedReader ReadCsvFile = new Draft_ReadCSVFile_BufferedReader();
+                    ReadCsvFile.saveInfoFromBufferToBuilder();
                     exit = false;
                     break;
                 case 2:

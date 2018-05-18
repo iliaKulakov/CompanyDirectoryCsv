@@ -62,7 +62,8 @@ public class Draft_ReadCSVFile_BufferedReader {
     }//getDateInfo
 
     // метод main в парсере
-    public static void main(String args[])
+    //public static void main(String args[])
+    public void saveInfoFromBufferToBuilder()
     {
         Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
         BufferedReader br = null;
@@ -92,6 +93,7 @@ public class Draft_ReadCSVFile_BufferedReader {
                 }
             }
             //Print persons
+            //Пока не понял почему у меня на печать не выводится обьект
             for(Person p : personList)
             {
                 System.out.println(p.getFIO()+"   "+p.getDateInfo()+"   "
@@ -114,6 +116,8 @@ public class Draft_ReadCSVFile_BufferedReader {
                 ie.printStackTrace();
             }
         }
+
+
     }
 
 

@@ -6,10 +6,8 @@ import java.io.FileNotFoundException;
 
 public class App {
     public static void main(String[] args) throws FileNotFoundException {
-        try {
 
-            //Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
-          //  FileParserObject.getDateInfo();
+       try {
 
             //  System.out.println(new App().getGreeting());
             Menu mainMenu = new MainMenu();

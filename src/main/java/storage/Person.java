@@ -21,7 +21,9 @@ public class Person implements IPerson {
     }
 
     //приватный конструктор
-    private Person(){}
+   private Person(){}
+
+
 
     public String getFIO() {
         return FIO;
@@ -80,6 +82,14 @@ public class Person implements IPerson {
         return new Person().new BuilderPerson();
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Person{" +
+                "FIO='" + FIO + '\'' +
+                ", DateInfo=" + DateInfo +
+                ", NumOfProjects=" + NumOfProjects +
+                ", Rate=" + Rate +
+                ", Comments='" + Comments + '\'' +
+                '}';
+    }
 }
