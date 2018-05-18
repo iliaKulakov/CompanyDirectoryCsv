@@ -15,7 +15,6 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
         } else {
             System.out.println("Not Found");
         }
-        //return Name;
     }
 
 

@@ -1,80 +1,25 @@
 package storage;
 
-import java.security.PublicKey;
 import java.util.Date;
 
 public class Person implements IPerson {
 
     private String FIO;
-    private Date DateInfo;
-    private Integer NumOfProjects;
-    private Float Rate;
-    private String Comments;
-
-
-    public Person(String FIO, Date dateInfo, Integer numOfProjects, Float rate, String comments) {
-        this.FIO = FIO;
-        DateInfo = dateInfo;
-        NumOfProjects = numOfProjects;
-        Rate = rate;
-        Comments = comments;
-    }
+    private Date birthDate;
+    private Integer numOfProjects;
+    private Float rate;
+    private String comments;
 
     //приватный конструктор
-   private Person(){}
-
-
-
-    public String getFIO() {
-        return FIO;
+    private Person() {
     }
 
-    public Date getDateInfo() {
-        return DateInfo;
-    }
-
-    public Integer getNumOfProjects() {
-        return NumOfProjects;
-    }
-
-    public Float getRate() {
-        return Rate;
-    }
-
-    public String getComments() {
-        return Comments;
-    }
-
-    //внутренний класс
-   public class BuilderPerson{
-        //приватный конструктор
-        private BuilderPerson(){}
-
-        public BuilderPerson setFIO(String FIO) {
-        Person.this.FIO = FIO;
-        return this;
-        }
-        public BuilderPerson setDateInfo(Date DateInfo) {
-        Person.this.DateInfo = DateInfo;
-        return this;
-        }
-        public BuilderPerson setNumOfProjects(Integer NumOfProjects) {
-        Person.this.NumOfProjects = NumOfProjects;
-        return this;
-        }
-        public BuilderPerson setRate(Float Rate) {
-        Person.this.Rate = Rate;
-        return this;
-        }
-        public BuilderPerson setComments(String Comments) {
-        Person.this.Comments = Comments;
-        return this;
-        }
-    }//BuilderPerson
-
-
-    public Person build(){
-        return Person.this;
+    private Person(String FIO, Date birthDate, Integer numOfProjects, Float rate, String comments) {
+        this.FIO = FIO;
+        this.birthDate = birthDate;
+        this.numOfProjects = numOfProjects;
+        this.rate = rate;
+        this.comments = comments;
     }
 
     //Создание экземпляра билдера
@@ -82,14 +27,75 @@ public class Person implements IPerson {
         return new Person().new BuilderPerson();
     }
 
+    public String getFIO() {
+        return FIO;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public Integer getNumOfProjects() {
+        return numOfProjects;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public Person build() {
+        return Person.this;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "FIO='" + FIO + '\'' +
-                ", DateInfo=" + DateInfo +
-                ", NumOfProjects=" + NumOfProjects +
-                ", Rate=" + Rate +
-                ", Comments='" + Comments + '\'' +
+                ", birthDate=" + birthDate +
+                ", numOfProjects=" + numOfProjects +
+                ", rate=" + rate +
+                ", comments='" + comments + '\'' +
                 '}';
     }
+
+    //внутренний класс
+    public class BuilderPerson {
+        //приватный конструктор
+        private BuilderPerson() {
+        }
+
+        public BuilderPerson setFIO(String FIO) {
+            Person.this.FIO = FIO;
+            return this;
+        }
+
+        public BuilderPerson setBirthDate(Date birthDate) {
+            Person.this.birthDate = birthDate;
+            return this;
+        }
+
+        public BuilderPerson setNumOfProjects(Integer NumOfProjects) {
+            Person.this.numOfProjects = NumOfProjects;
+            return this;
+        }
+
+        public BuilderPerson setRate(Float Rate) {
+            Person.this.rate = Rate;
+            return this;
+        }
+
+        public BuilderPerson setComments(String Comments) {
+            Person.this.comments = Comments;
+            return this;
+        }
+
+        public Person build() {
+            return Person.this;
+        }
+
+    }//BuilderPerson
 }

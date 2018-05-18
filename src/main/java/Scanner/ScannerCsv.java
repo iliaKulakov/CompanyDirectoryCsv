@@ -79,7 +79,7 @@ public class ScannerCsv implements IScannerCsv {
                         System.out.println("Некорректные данные::" + data);
                     index++;
                 } //scanner
-                
+
                 index = 0;
                 personList.add(persons);
             }
