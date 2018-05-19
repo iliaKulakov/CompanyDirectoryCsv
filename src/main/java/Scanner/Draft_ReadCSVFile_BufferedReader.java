@@ -1,7 +1,6 @@
 package Scanner;
 
 import storage.Person;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 //Тут экспериментировал как нормальный парсинг сделать в итоге
-public class Draft_ReadCSVFile_BufferedReader {
+public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     //Delimiters used in the CSV file
     private static final String COMMA_DELIMITER = ";";
 
@@ -29,7 +28,6 @@ public class Draft_ReadCSVFile_BufferedReader {
     public Date getDateInfo(String DateInfo) {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        //String dateInString = "07.06.2013";
         String dateInString = DateInfo;
         try {
             date = formatter.parse(DateInfo);
@@ -39,9 +37,9 @@ public class Draft_ReadCSVFile_BufferedReader {
         return date;
     }//getBirthDate
 
-    // метод main в парсере
-    //public static void main(String args[])
+    //парсинг и сохранение строк в билдер
     public void saveInfoFromBufferToBuilder() {
+        //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
         Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
         BufferedReader br = null;
         try {
