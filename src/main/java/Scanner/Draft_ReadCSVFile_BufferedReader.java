@@ -24,7 +24,6 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     }
 
     //Метод для проверки и перевода строки в дату
-    //public Date getBirthDate(String Date){
     public Date getDateInfo(String DateInfo) {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -37,6 +36,26 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
         return date;
     }//getBirthDate
 
+    //Метод для проверки корректного количества проектов
+    public int getNumberOfProjects(int personDetails) {
+        int numberOfProjects;
+        numberOfProjects=personDetails;
+        if(numberOfProjects<0)
+        {
+            //Что делать когда проверка не пройдена, например количество проектов отрицательное?
+        }
+        return numberOfProjects;
+    }
+
+    /*public String getComments (String personDetails){
+        String Comments="";
+        Comments=personDetails;
+        Comments=
+
+        return Comments
+    }*/
+
+
     //парсинг и сохранение строк в билдер
     public void saveInfoFromBufferToBuilder() {
         //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
@@ -47,7 +66,8 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
             List<Person> personList = new ArrayList<Person>();
             String line = "";
             while ((line = br.readLine()) != null) {
-                String[] personsDetails = line.split(COMMA_DELIMITER);
+
+                String[] personsDetails = line.split(COMMA_DELIMITER,5);
 
                 if (personsDetails.length > 0) {
                     // Методы валидации
@@ -57,7 +77,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
                     float rate = Float.parseFloat(personsDetails[3].trim());
                     String comments = personsDetails[4].trim();
 
-                    //Сохранение в билдер
+                    //Сохранение в билдер через сеттеры
                     Person person = Person.newBuilderPerson()
                             .setFIO(FIO)
                             .setBirthDate(birthDate)
