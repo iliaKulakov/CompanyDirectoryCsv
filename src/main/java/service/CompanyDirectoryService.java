@@ -4,7 +4,6 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
 
     public void searchByName(String Name) {
         //Заглушка для поиска
-
         String FIO = "Иванов ИванИванович";
         FIO = FIO.toLowerCase();
         Name = Name.toLowerCase();

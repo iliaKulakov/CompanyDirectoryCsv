@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-//Тут экспериментировал как нормальный парсинг сделать в итоге
 public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     //Delimiters used in the CSV file
     private static final String COMMA_DELIMITER = ";";
@@ -33,30 +32,21 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         String dateInString = DateInfo;
         String dayString = dateInString.substring(0,2);
-                String monthString = dateInString.substring(4,5);
-
+        String monthString = dateInString.substring(4,5);
         int day = Integer.parseInt(dayString);
         int month = Integer.parseInt(monthString);
-        //try {
+
             if(day<=31){
-
-            if(month<=12)
-            {
-                //date = formatter.parse(DateInfo);
+                if(month<=12) {
                 date = formatter.parse(dateInString);
-            }
-            else
-            { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+            } else { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
                 ValidatonException e = new ValidatonException(testmessage);
-                throw e;}}
-
-                    else
-            {
+                throw e;}
+            } else {
                 String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
                 ValidatonException e = new ValidatonException(testmessage);
                 throw e;
             }
-
         return date;
     }//getBirthDate
 
@@ -64,13 +54,10 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     public int getNumberOfProjects(String personDetails) throws ValidatonException{
         String String = personDetails;
         int numberOfProjects = Integer.parseInt(String);
-        if(numberOfProjects<0)
-        {
+        if(numberOfProjects<0) {
             String testmessage = "Поле 'Количество проектов' содержит некорректное число " + numberOfProjects;
             ValidatonException e = new ValidatonException(testmessage);
             throw e;
-
-            //Что делать когда проверка не пройдена, например количество проектов отрицательное?
         }
         return numberOfProjects;
     }
@@ -78,24 +65,21 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     //метод проверки рейтинга, проверяем что значение положительное
     public Float getRate (String stringRate) throws ValidatonException {
         Float Rate = Float.parseFloat(stringRate);
-        if(Rate<0)
-            {
+        if(Rate<0) {
                 String testmessage = "Поле 'Рейтинг' содержит некорректное значение " + stringRate;
                 ValidatonException e = new ValidatonException(testmessage);
                 throw e;
-            }
-
+        }
         return Rate;
     }
-
 
     //метод проверки комментариев. Просто проверяем что длина комментария не длинее 50 символов (просто взял из головы
     //чтобы сделать метод валидации
     public String getComments(String commentsString) throws ValidatonException {
         String comments=commentsString;
         int variableForCheck=50;
-        if (comments.length()>variableForCheck)
-        {
+
+        if (comments.length()>variableForCheck) {
             String testmessage = "Поле 'Комментарий' превышает допустимое количество символов " + comments;
             ValidatonException e = new ValidatonException(testmessage);
             throw e;
@@ -114,7 +98,6 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
             String line = "";
 
                 while ((line = br.readLine()) != null) {
-
                     String[] personsDetails = line.split(COMMA_DELIMITER, 5);
 
                     try{
@@ -126,7 +109,6 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
                             float rate = getRate(personsDetails[3].trim());
                             String comments = getComments(personsDetails[4].trim());
 
-                            //Сохранение в билдер через сеттеры
                             Person person = Person.newBuilderPerson()
                                     .setFIO(FIO)
                                     .setBirthDate(birthDate)
@@ -136,18 +118,14 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
                                     .build();                     //Comments
                             personList.add(person);
                         }//if
-
                     }//try
-                    catch (ValidatonException e)
-                    {
-
+                    catch (ValidatonException e) {
                         System.out.println(e);
                         System.out.println("Ошибки данных в загруженном файле - ошибочные строки пропущены");
                     }
 
                 }//while
 
-            //Print persons
             //Пока не понял почему у меня на печать не выводится обьект
             for (Person p : personList) {
                 System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "

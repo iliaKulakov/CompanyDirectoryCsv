@@ -1,7 +1,6 @@
 package Scanner;
 
 import service.ValidatonException;
-
 import java.io.IOException;
 
 public interface IReadCsvFile {

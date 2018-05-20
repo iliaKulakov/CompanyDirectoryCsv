@@ -42,9 +42,6 @@ public class MainMenu extends AbstractMenu {
             switch (command) {
                 case 1:
                     System.out.println("Вы ввели число 1 - Загрузка файла ");
-                    //Чтение из файла, сохранение и вывод
-                    //ScannerCsv readFromFile = new ScannerCsv();
-                    //readFromFile.toReadFromFile2();
                     Draft_ReadCSVFile_BufferedReader ReadCsvFile = new Draft_ReadCSVFile_BufferedReader();
                     ReadCsvFile.saveInfoFromBufferToBuilder();
                     exit = false;
