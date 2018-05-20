@@ -26,15 +26,35 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     }
 
     //Метод для проверки и перевода строки в дату
-    public Date getDateInfo(String DateInfo) throws ValidatonException {
+    public Date getDateInfo(String DateInfo) throws ValidatonException,ParseException {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         String dateInString = DateInfo;
-        try {
-            date = formatter.parse(DateInfo);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String dayString = dateInString.substring(0,2);
+                String monthString = dateInString.substring(4,5);
+
+        int day = Integer.parseInt(dayString);
+        int month = Integer.parseInt(monthString);
+        //try {
+            if(day<=31){
+
+            if(month<=12)
+            {
+                //date = formatter.parse(DateInfo);
+                date = formatter.parse(dateInString);
+            }
+            else
+            { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                ValidatonException e = new ValidatonException(testmessage);
+                throw e;}}
+
+                    else
+            {
+                String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                ValidatonException e = new ValidatonException(testmessage);
+                throw e;
+            }
+
         return date;
     }//getBirthDate
 
