@@ -140,10 +140,67 @@ public class ReadCsvFile implements IReadCsvFile {
                     ie.printStackTrace();
                 }
             }
-
-
-
         }
+
+
+    public List<Person> saveInfoFromBufferToBuilder2() throws ValidatonException,IOException {
+        //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
+        Scanner.ReadCsvFile FileParserObject = new Scanner.ReadCsvFile();
+        BufferedReader br = null;
+        List<Person> personList = null;
+        try {
+            br = new BufferedReader(new FileReader("db.csv"));
+            personList = new ArrayList<Person>();
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                String[] personsDetails = line.split(COMMA_DELIMITER, 5);
+
+                try {
+                    if (personsDetails.length > 0) {
+                        // Методы валидации
+                        String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
+                        Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
+                        int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
+                        float rate = getRate(personsDetails[3].trim());
+                        String comments = getComments(personsDetails[4].trim());
+
+                        Person person = Person.newBuilderPerson()
+                                .setFIO(FIO)
+                                .setBirthDate(birthDate)
+                                .setNumOfProjects(numberOfProjects)
+                                .setRate(rate)
+                                .setComments(comments)
+                                .build();                     //Comments
+                        personList.add(person);
+                    }//if
+                }//try
+                catch (ValidatonException e) {
+                    System.out.println(e);
+                    System.out.println("Ошибки данных в загруженном файле - ошибочные строки пропущены");
+                }
+
+            }//while
+
+            //Пока не понял почему у меня на печать не выводится обьект
+            for (Person p : personList) {
+                System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "
+                        + p.getNumOfProjects() + "   " + p.getRate() + "   " + p.getComments());
+            }
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ie) {
+                System.out.println("Error occured while closing the BufferedReader");
+                ie.printStackTrace();
+            }
+        }
+        return personList;
+
+    }
+
 
     }
 

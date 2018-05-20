@@ -1,7 +1,9 @@
 package service;
 
-public interface ICompanyDirectoryService {
+import java.io.IOException;
 
-    void searchByName(String Name);
+public interface ICompanyDirectoryService  {
+
+    void searchByName(String Name) throws ValidatonException,IOException;
 
 }
