@@ -15,17 +15,22 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
         //Person person = Person.newBuilderPerson().build();
         ReadCsvFile readFile = new ReadCsvFile();
         List<Person> listForSearch = readFile.saveInfoFromBufferToBuilder2();
-
+        int resultFlag=0;
         for (Person p : listForSearch) {
+            while (p.getFIO().equals(fioForCompare)) {
+                System.out.println("Строка найдена");
+                resultFlag=1;
+                break;
+            }
+            }//for
 
-            if (p.getFIO().equals(fioForCompare)) {
+            if (resultFlag==1) {
                 System.out.println("Строка найдена");
             } else {
                 System.out.println("Строка не найдена");
             }
 
             }
-
         }
 
 
@@ -41,7 +46,7 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
         } else {
             System.out.println("Not Found");
         }*/
-    }
+
 
 
 
