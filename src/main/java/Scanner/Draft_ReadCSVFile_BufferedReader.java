@@ -2,6 +2,8 @@ package Scanner;
 
 import service.ValidatonException;
 import storage.Person;
+
+import javax.xml.stream.events.Comment;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     //Метод для проверки первого поля из файла ФИО
     public String getFirstName(String FIO) throws ValidatonException{
         String FirstLastName = "";
-        //Проверки ФИО
+        //Что проверять в ФИО?
         FirstLastName = FIO;
         return FirstLastName;
     }
@@ -73,14 +75,33 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
         return numberOfProjects;
     }
 
-    /*public String getComments (String personDetails){
-        String Comments="";
-        Comments=personDetails;
-        Comments=
+    //метод проверки рейтинга, проверяем что значение положительное
+    public Float getRate (String stringRate) throws ValidatonException {
+        Float Rate = Float.parseFloat(stringRate);
+        if(Rate<0)
+            {
+                String testmessage = "Поле 'Рейтинг' содержит некорректное значение " + stringRate;
+                ValidatonException e = new ValidatonException(testmessage);
+                throw e;
+            }
 
-        return Comments
-    }*/
+        return Rate;
+    }
 
+
+    //метод проверки комментариев. Просто проверяем что длина комментария не длинее 50 символов (просто взял из головы
+    //чтобы сделать метод валидации
+    public String getComments(String commentsString) throws ValidatonException {
+        String comments=commentsString;
+        int variableForCheck=50;
+        if (comments.length()>variableForCheck)
+        {
+            String testmessage = "Поле 'Комментарий' превышает допустимое количество символов " + comments;
+            ValidatonException e = new ValidatonException(testmessage);
+            throw e;
+        }
+        return comments;
+    }
 
     //парсинг и сохранение строк в билдер
     public void saveInfoFromBufferToBuilder() throws ValidatonException,IOException {
@@ -101,10 +122,9 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
                             // Методы валидации
                             String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
                             Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
-                            // int numberOfProjects = Integer.parseInt(personsDetails[2].trim());
                             int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
-                            float rate = Float.parseFloat(personsDetails[3].trim());
-                            String comments = personsDetails[4].trim();
+                            float rate = getRate(personsDetails[3].trim());
+                            String comments = getComments(personsDetails[4].trim());
 
                             //Сохранение в билдер через сеттеры
                             Person person = Person.newBuilderPerson()
