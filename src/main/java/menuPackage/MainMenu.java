@@ -1,6 +1,7 @@
 package menuPackage;
 
 import Scanner.Draft_ReadCSVFile_BufferedReader;
+import Scanner.ReadCsvFile;
 import service.CompanyDirectoryService;
 import service.ValidatonException;
 
@@ -42,7 +43,7 @@ public class MainMenu extends AbstractMenu {
             switch (command) {
                 case 1:
                     System.out.println("Вы ввели число 1 - Загрузка файла ");
-                    Draft_ReadCSVFile_BufferedReader ReadCsvFile = new Draft_ReadCSVFile_BufferedReader();
+                    ReadCsvFile ReadCsvFile = new ReadCsvFile();
                     ReadCsvFile.saveInfoFromBufferToBuilder();
                     exit = false;
                     break;
