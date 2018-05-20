@@ -147,7 +147,6 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
 
                 }//while
 
-
             //Print persons
             //Пока не понял почему у меня на печать не выводится обьект
             for (Person p : personList) {
