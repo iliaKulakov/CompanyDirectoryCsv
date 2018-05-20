@@ -76,7 +76,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     //метод проверки комментариев. Просто проверяем что длина комментария не длинее 50 символов (просто взял из головы
     //чтобы сделать метод валидации
     public String getComments(String commentsString) throws ValidatonException {
-        String comments=commentsString;
+        String comments = commentsString;
         int variableForCheck=50;
 
         if (comments.length()>variableForCheck) {
