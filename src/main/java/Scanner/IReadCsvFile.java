@@ -1,7 +1,9 @@
 package Scanner;
 
+import service.ValidatonException;
+
 public interface IReadCsvFile {
 
-   void saveInfoFromBufferToBuilder() ;
+   void saveInfoFromBufferToBuilder () throws ValidatonException;
 
 }

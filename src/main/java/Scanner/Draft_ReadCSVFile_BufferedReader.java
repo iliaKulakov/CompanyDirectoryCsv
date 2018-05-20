@@ -1,5 +1,6 @@
 package Scanner;
 
+import service.ValidatonException;
 import storage.Person;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +17,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     private static final String COMMA_DELIMITER = ";";
 
     //Метод для проверки первого поля из файла ФИО
-    public String getFirstName(String FIO) {
+    public String getFirstName(String FIO) throws ValidatonException{
         String FirstLastName = "";
         //Проверки ФИО
         FirstLastName = FIO;
@@ -24,7 +25,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     }
 
     //Метод для проверки и перевода строки в дату
-    public Date getDateInfo(String DateInfo) {
+    public Date getDateInfo(String DateInfo) throws ValidatonException {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
         String dateInString = DateInfo;
@@ -37,11 +38,15 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
     }//getBirthDate
 
     //Метод для проверки корректного количества проектов
-    public int getNumberOfProjects(int personDetails) {
-        int numberOfProjects;
-        numberOfProjects=personDetails;
+    public int getNumberOfProjects(String personDetails) throws ValidatonException{
+        String String = personDetails;
+        int numberOfProjects = Integer.parseInt(String);
         if(numberOfProjects<0)
         {
+            String testmessage = "Некорректное число" + numberOfProjects;
+            ValidatonException e = new ValidatonException(testmessage);
+            throw e;
+
             //Что делать когда проверка не пройдена, например количество проектов отрицательное?
         }
         return numberOfProjects;
@@ -57,7 +62,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
 
 
     //парсинг и сохранение строк в билдер
-    public void saveInfoFromBufferToBuilder() {
+    public void saveInfoFromBufferToBuilder() throws ValidatonException {
         //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
         Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
         BufferedReader br = null;
@@ -65,6 +70,8 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
             br = new BufferedReader(new FileReader("db.csv"));
             List<Person> personList = new ArrayList<Person>();
             String line = "";
+
+
             while ((line = br.readLine()) != null) {
 
                 String[] personsDetails = line.split(COMMA_DELIMITER,5);
@@ -73,7 +80,8 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
                     // Методы валидации
                     String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
                     Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
-                    int numberOfProjects = Integer.parseInt(personsDetails[2].trim());
+                   // int numberOfProjects = Integer.parseInt(personsDetails[2].trim());
+                    int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
                     float rate = Float.parseFloat(personsDetails[3].trim());
                     String comments = personsDetails[4].trim();
 

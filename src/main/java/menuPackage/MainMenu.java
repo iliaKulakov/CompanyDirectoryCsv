@@ -2,6 +2,7 @@ package menuPackage;
 
 import Scanner.Draft_ReadCSVFile_BufferedReader;
 import service.CompanyDirectoryService;
+import service.ValidatonException;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class MainMenu extends AbstractMenu {
     }
 
     @Override
-    public void interactWithMenu() throws FileNotFoundException {
+    public void interactWithMenu() throws FileNotFoundException , ValidatonException{
         //TODO: Обработка ввода и вызов метода контроллера
         boolean exit = false;
         do {
