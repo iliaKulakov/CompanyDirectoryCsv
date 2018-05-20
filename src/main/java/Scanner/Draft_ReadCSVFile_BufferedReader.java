@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 //Тут экспериментировал как нормальный парсинг сделать в итоге
 public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
@@ -43,7 +44,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
         int numberOfProjects = Integer.parseInt(String);
         if(numberOfProjects<0)
         {
-            String testmessage = "Некорректное число" + numberOfProjects;
+            String testmessage = "Поле 'Количество проектов' содержит некорректное число " + numberOfProjects;
             ValidatonException e = new ValidatonException(testmessage);
             throw e;
 
@@ -62,7 +63,7 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
 
 
     //парсинг и сохранение строк в билдер
-    public void saveInfoFromBufferToBuilder() throws ValidatonException {
+    public void saveInfoFromBufferToBuilder() throws ValidatonException,IOException {
         //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
         Draft_ReadCSVFile_BufferedReader FileParserObject = new Draft_ReadCSVFile_BufferedReader();
         BufferedReader br = null;
@@ -71,31 +72,42 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
             List<Person> personList = new ArrayList<Person>();
             String line = "";
 
+                while ((line = br.readLine()) != null) {
 
-            while ((line = br.readLine()) != null) {
+                    String[] personsDetails = line.split(COMMA_DELIMITER, 5);
 
-                String[] personsDetails = line.split(COMMA_DELIMITER,5);
+                    try{
+                        if (personsDetails.length > 0) {
+                            // Методы валидации
+                            String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
+                            Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
+                            // int numberOfProjects = Integer.parseInt(personsDetails[2].trim());
+                            int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
+                            float rate = Float.parseFloat(personsDetails[3].trim());
+                            String comments = personsDetails[4].trim();
 
-                if (personsDetails.length > 0) {
-                    // Методы валидации
-                    String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
-                    Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
-                   // int numberOfProjects = Integer.parseInt(personsDetails[2].trim());
-                    int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
-                    float rate = Float.parseFloat(personsDetails[3].trim());
-                    String comments = personsDetails[4].trim();
+                            //Сохранение в билдер через сеттеры
+                            Person person = Person.newBuilderPerson()
+                                    .setFIO(FIO)
+                                    .setBirthDate(birthDate)
+                                    .setNumOfProjects(numberOfProjects)
+                                    .setRate(rate)
+                                    .setComments(comments)
+                                    .build();                     //Comments
+                            personList.add(person);
+                        }//if
 
-                    //Сохранение в билдер через сеттеры
-                    Person person = Person.newBuilderPerson()
-                            .setFIO(FIO)
-                            .setBirthDate(birthDate)
-                            .setNumOfProjects(numberOfProjects)
-                            .setRate(rate)
-                            .setComments(comments)
-                            .build();                     //Comments
-                    personList.add(person);
-                }
-            }
+                    }//try
+                    catch (ValidatonException e)
+                    {
+
+                        System.out.println(e);
+                        System.out.println("Ошибки данных в загруженном файле - ошибочные строки пропущены");
+                    }
+
+                }//while
+
+
             //Print persons
             //Пока не понял почему у меня на печать не выводится обьект
             for (Person p : personList) {
@@ -113,8 +125,9 @@ public class Draft_ReadCSVFile_BufferedReader implements IReadCsvFile {
             }
         }
 
-
     }
 
+    }//saveInfoFromBufferToBuilder
 
-}
+
+

@@ -5,6 +5,7 @@ import service.CompanyDirectoryService;
 import service.ValidatonException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainMenu extends AbstractMenu {
@@ -23,7 +24,7 @@ public class MainMenu extends AbstractMenu {
     }
 
     @Override
-    public void interactWithMenu() throws FileNotFoundException , ValidatonException{
+    public void interactWithMenu() throws FileNotFoundException , ValidatonException,IOException{
         //TODO: Обработка ввода и вызов метода контроллера
         boolean exit = false;
         do {
