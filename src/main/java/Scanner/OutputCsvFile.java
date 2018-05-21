@@ -1,17 +1,26 @@
 package Scanner;
 
+import com.google.common.io.LittleEndianDataOutputStream;
+import storage.Person;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class OutputCsvFile implements IOutputCsvFile {
 
-    public void saveInfoInCsvFileOutput()throws IOException{
+    public void saveInfoInCsvFileOutput(Person person)throws IOException{
+
+        Person personOutputResult = person;
+       // System.out.println(personOutputResult.toString());
+
 
         BufferedWriter bw = new BufferedWriter(new FileWriter("dbOutput.csv"));
         try
         {
-            String text = "test.";
+            String text = personOutputResult.getFIO() + "   " + personOutputResult.getBirthDate() + "   "
+                    + personOutputResult.getNumOfProjects() + "   " + personOutputResult.getRate() + "   " + personOutputResult.getComments();
             bw.write(text);
         }
         catch(IOException exc){

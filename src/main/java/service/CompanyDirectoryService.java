@@ -20,8 +20,13 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
         for (Person p : listForSearch) {
 
              if(p.getFIO().equals(fioForCompare)){
+
                  System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "
                          + p.getNumOfProjects() + "   " + p.getRate() + "   " + p.getComments());
+
+                 OutputCsvFile OutputCsvFile = new OutputCsvFile();
+                 OutputCsvFile.saveInfoInCsvFileOutput(p);
+
                 resultFlag=1;
                 break;
             }
@@ -35,8 +40,8 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
                 System.out.println("Строка не найдена");
             }
 
-        OutputCsvFile OutputCsvFile = new OutputCsvFile();
-        OutputCsvFile.saveInfoInCsvFileOutput();
+       // OutputCsvFile OutputCsvFile = new OutputCsvFile();
+       // OutputCsvFile.saveInfoInCsvFileOutput();
 
             }//searchByName
 
