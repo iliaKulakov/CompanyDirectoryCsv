@@ -143,6 +143,7 @@ public class ReadCsvFile implements IReadCsvFile {
         }
 
 
+   //Использую данный метод для вызова в поиске. Из него вывод элементов, а так все то же самое
     public List<Person> saveInfoFromBufferToBuilder2() throws ValidatonException,IOException {
         //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
         Scanner.ReadCsvFile FileParserObject = new Scanner.ReadCsvFile();
@@ -182,11 +183,6 @@ public class ReadCsvFile implements IReadCsvFile {
 
             }//while
 
-            //Пока не понял почему у меня на печать не выводится обьект
-            for (Person p : personList) {
-                System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "
-                        + p.getNumOfProjects() + "   " + p.getRate() + "   " + p.getComments());
-            }
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {

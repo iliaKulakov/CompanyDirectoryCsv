@@ -17,8 +17,10 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
         List<Person> listForSearch = readFile.saveInfoFromBufferToBuilder2();
         int resultFlag=0;
         for (Person p : listForSearch) {
-            while (p.getFIO().equals(fioForCompare)) {
-                System.out.println("Строка найдена");
+
+             if(p.getFIO().equals(fioForCompare)){
+                 System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "
+                         + p.getNumOfProjects() + "   " + p.getRate() + "   " + p.getComments());
                 resultFlag=1;
                 break;
             }
@@ -26,27 +28,13 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
 
             if (resultFlag==1) {
                 System.out.println("Строка найдена");
+
+
             } else {
                 System.out.println("Строка не найдена");
             }
-
             }
         }
-
-
-
-        //String FIO = "Иванов ИванИванович";
-        /*
-        FIO = FIO.toLowerCase();
-        Name = Name.toLowerCase();
-        System.out.println(FIO);
-        boolean isContain = FIO.contains(Name);
-        if (isContain) {
-            System.out.println("Found");
-        } else {
-            System.out.println("Not Found");
-        }*/
-
 
 
 
