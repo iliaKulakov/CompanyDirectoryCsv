@@ -1,5 +1,6 @@
 package service;
 
+import Scanner.OutputCsvFile;
 import Scanner.ReadCsvFile;
 import storage.Person;
 
@@ -33,7 +34,12 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
             } else {
                 System.out.println("Строка не найдена");
             }
-            }
+
+        OutputCsvFile OutputCsvFile = new OutputCsvFile();
+        OutputCsvFile.saveInfoInCsvFileOutput();
+
+            }//searchByName
+
         }
 
 
