@@ -1,6 +1,5 @@
 package menuPackage;
 
-g
 import Scanner.ReadCsvFile;
 import service.CompanyDirectoryService;
 import service.ValidatonException;
