@@ -50,7 +50,7 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
 
     //Метод для сортировки по полю ФИО
     public void sortByFio() throws ValidatonException,IOException,StringIndexOutOfBoundsException{
-        try{
+
             try{
                 //Читаем файл и можем работать уже с прочитанными элементами
                 ReadCsvFile readFile = new ReadCsvFile();
@@ -73,12 +73,7 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
                 System.out.println(ve);
                 System.out.println("Ошибки при сортировке данных");
             }
-        }
-        catch (StringIndexOutOfBoundsException ee) {
-           // ee.printStackTrace();
-            System.out.println("Ошибка");
 
-        }
 
     }
 

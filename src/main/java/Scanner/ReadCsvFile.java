@@ -26,28 +26,36 @@ public class ReadCsvFile implements IReadCsvFile {
         }
 
         //Метод для проверки и перевода строки в дату
-        public Date getDateInfo(String DateInfo) throws ValidatonException,ParseException {
-            Date date = null;
-            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-            String dateInString = DateInfo;
-            String dayString = dateInString.substring(0,2);
-            String monthString = dateInString.substring(4,5);
-            int day = Integer.parseInt(dayString);
-            int month = Integer.parseInt(monthString);
+        public Date getDateInfo(String DateInfo) throws ValidatonException,ParseException,StringIndexOutOfBoundsException {
 
-            if(day<=31){
-                if(month<=12) {
-                    date = formatter.parse(dateInString);
-                } else { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
-                    ValidatonException e = new ValidatonException(testmessage);
-                    throw e;}
-            } else {
-                String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
-                ValidatonException e = new ValidatonException(testmessage);
-                throw e;
+              Date date = null;
+            try{
+              SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+              String dateInString = DateInfo;
+              String dayString = dateInString.substring(0,2);
+              String monthString = dateInString.substring(4,5);
+              int day = Integer.parseInt(dayString);
+              int month = Integer.parseInt(monthString);
+
+              if(day<=31){
+                  if(month<=12) {
+                      date = formatter.parse(dateInString);
+                  } else { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                      ValidatonException e = new ValidatonException(testmessage);
+                      throw e;}
+              } else {
+                  String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                  ValidatonException e = new ValidatonException(testmessage);
+                  throw e;
+              }
+
+          }
+            catch (StringIndexOutOfBoundsException se)
+            {
+                System.out.println("В строке содержится некорректная или отсуствует информация о ФИО пользователя");
             }
-            return date;
 
+            return date;
         }//getBirthDate
 
         //Метод для проверки корректного количества проектов
