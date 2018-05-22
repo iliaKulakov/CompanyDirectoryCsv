@@ -52,7 +52,6 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
     //И оно даже работает, проверил с другими полями
     public void sortByFio() throws ValidatonException,IOException{
         //Читаем файл и можем работать уже с прочитанными элементами
-        //PersonComparator personComparator = new PersonComparator();
         ReadCsvFile readFile = new ReadCsvFile();
         List<Person> listForSearch = readFile.saveInfoFromBufferToBuilder2();
         //Сортировка через внутренний анонимный класс
