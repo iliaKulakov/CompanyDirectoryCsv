@@ -47,6 +47,7 @@ public class ReadCsvFile implements IReadCsvFile {
                 throw e;
             }
             return date;
+
         }//getBirthDate
 
         //Метод для проверки корректного количества проектов
