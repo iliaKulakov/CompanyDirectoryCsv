@@ -56,9 +56,9 @@ public class MainMenu extends AbstractMenu {
                     break;
                 case 3:
                     System.out.println("You have entered the number 3. Sort clients");
-                    System.out.println("Type a name from the keyboard to search");
-                    Scanner scName3 = new Scanner(System.in);
-                    String fio = scName3.nextLine();
+                    //System.out.println("Type a name from the keyboard to sort");
+                    //Scanner scName3 = new Scanner(System.in);
+                    //String fio = scName3.nextLine();
                     service.sortByFio();
                     exit = false;
                     break;
