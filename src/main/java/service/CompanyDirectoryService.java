@@ -3,10 +3,14 @@ package service;
 import Scanner.OutputCsvFile;
 import Scanner.ReadCsvFile;
 import storage.Person;
+import storage.PersonComparator;
 
 import javax.swing.plaf.basic.BasicScrollPaneUI;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CompanyDirectoryService implements ICompanyDirectoryService {
 
@@ -34,8 +38,6 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
 
             if (resultFlag==1) {
                 System.out.println("Строка найдена");
-
-
             } else {
                 System.out.println("Строка не найдена");
             }
@@ -45,7 +47,26 @@ public class CompanyDirectoryService implements ICompanyDirectoryService {
 
             }//searchByName
 
+    //Заготовка для сортировки
+    public void sortByFio() throws ValidatonException,IOException{
+        //Читаем файл и можем работать уже с прочитанными элементами
+     //   PersonComparator personComparator = new PersonComparator();
+        ReadCsvFile readFile = new ReadCsvFile();
+        List<Person> listForSearch = readFile.saveInfoFromBufferToBuilder2();
+        listForSearch.sort(Comparator.comparing(Person.newBuilderPerson().));
+
+
+        for(Person p : listForSearch){
+           // listForSearch.sort(personComparator.compare(p.build(),p.build()));
+
+            System.out.println(p.getFIO() + "   " + p.getBirthDate() + "   "
+                    + p.getNumOfProjects() + "   " + p.getRate() + "   " + p.getComments());
         }
+
+    }
+
+
+}
 
 
 

@@ -6,4 +6,6 @@ public interface ICompanyDirectoryService  {
 
     void searchByName(String Name) throws ValidatonException,IOException;
 
+    void sortByFio() throws ValidatonException,IOException;
+
 }
