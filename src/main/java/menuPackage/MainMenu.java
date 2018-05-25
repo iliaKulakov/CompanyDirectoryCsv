@@ -1,6 +1,5 @@
 package menuPackage;
 
-import Scanner.Draft_ReadCSVFile_BufferedReader;
 import Scanner.ReadCsvFile;
 import service.CompanyDirectoryService;
 import service.ValidatonException;
@@ -48,7 +47,7 @@ public class MainMenu extends AbstractMenu {
                     exit = false;
                     break;
                 case 2:
-                    System.out.println("You have entered the number 2. Search Persons");
+                    System.out.println("You have entered the number 2. Search clients");
                     System.out.println("Type a name from the keyboard to search");
                     Scanner scName2 = new Scanner(System.in);
                     String Name = scName2.nextLine();
@@ -56,6 +55,11 @@ public class MainMenu extends AbstractMenu {
                     exit = false;
                     break;
                 case 3:
+                    System.out.println("You have entered the number 3. Sort clients");
+                    //System.out.println("Type a name from the keyboard to sort");
+                    //Scanner scName3 = new Scanner(System.in);
+                    //String fio = scName3.nextLine();
+                    service.sortByFio();
                     exit = false;
                     break;
                 default:

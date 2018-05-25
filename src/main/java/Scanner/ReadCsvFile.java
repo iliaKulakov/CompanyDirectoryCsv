@@ -26,26 +26,35 @@ public class ReadCsvFile implements IReadCsvFile {
         }
 
         //Метод для проверки и перевода строки в дату
-        public Date getDateInfo(String DateInfo) throws ValidatonException,ParseException {
-            Date date = null;
-            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-            String dateInString = DateInfo;
-            String dayString = dateInString.substring(0,2);
-            String monthString = dateInString.substring(4,5);
-            int day = Integer.parseInt(dayString);
-            int month = Integer.parseInt(monthString);
+        public Date getDateInfo(String DateInfo) throws ValidatonException,ParseException,StringIndexOutOfBoundsException {
 
-            if(day<=31){
-                if(month<=12) {
-                    date = formatter.parse(dateInString);
-                } else { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
-                    ValidatonException e = new ValidatonException(testmessage);
-                    throw e;}
-            } else {
-                String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
-                ValidatonException e = new ValidatonException(testmessage);
-                throw e;
+              Date date = null;
+            try{
+              SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+              String dateInString = DateInfo;
+              String dayString = dateInString.substring(0,2);
+              String monthString = dateInString.substring(4,5);
+              int day = Integer.parseInt(dayString);
+              int month = Integer.parseInt(monthString);
+
+              if(day<=31){
+                  if(month<=12) {
+                      date = formatter.parse(dateInString);
+                  } else { String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                      ValidatonException e = new ValidatonException(testmessage);
+                      throw e;}
+              } else {
+                  String testmessage = "Поле 'Дата' содержит некорректные данные " + dateInString;
+                  ValidatonException e = new ValidatonException(testmessage);
+                  throw e;
+              }
+
+          }
+            catch (StringIndexOutOfBoundsException se)
+            {
+                System.out.println("В строке содержится некорректная или отсуствует информация о ФИО пользователя");
             }
+
             return date;
         }//getBirthDate
 
@@ -140,10 +149,63 @@ public class ReadCsvFile implements IReadCsvFile {
                     ie.printStackTrace();
                 }
             }
-
-
-
         }
+
+
+   //Использую данный метод для вызова в поиске. Из него вывод элементов, а так все то же самое
+    public List<Person> saveInfoFromBufferToBuilder2() throws ValidatonException,IOException {
+        //создаю обьект класса внутри класса, чтобы обращаться к методам валидации
+        Scanner.ReadCsvFile FileParserObject = new Scanner.ReadCsvFile();
+        BufferedReader br = null;
+        List<Person> personList = null;
+        try {
+            br = new BufferedReader(new FileReader("db.csv"));
+            personList = new ArrayList<Person>();
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                String[] personsDetails = line.split(COMMA_DELIMITER, 5);
+
+                try {
+                    if (personsDetails.length > 0) {
+                        // Методы валидации
+                        String FIO = FileParserObject.getFirstName(personsDetails[0].trim());
+                        Date birthDate = FileParserObject.getDateInfo(personsDetails[1].trim());
+                        int numberOfProjects = getNumberOfProjects(personsDetails[2].trim());
+                        float rate = getRate(personsDetails[3].trim());
+                        String comments = getComments(personsDetails[4].trim());
+
+                        Person person = Person.newBuilderPerson()
+                                .setFIO(FIO)
+                                .setBirthDate(birthDate)
+                                .setNumOfProjects(numberOfProjects)
+                                .setRate(rate)
+                                .setComments(comments)
+                                .build();                     //Comments
+                        personList.add(person);
+                    }//if
+                }//try
+                catch (ValidatonException e) {
+                    System.out.println(e);
+                    System.out.println("Ошибки данных в загруженном файле - ошибочные строки пропущены");
+                }
+
+            }//while
+
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ie) {
+                System.out.println("Error occured while closing the BufferedReader");
+                ie.printStackTrace();
+            }
+        }
+        return personList;
+
+    }
+
 
     }
 
